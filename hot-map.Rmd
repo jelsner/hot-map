@@ -1,0 +1,26 @@
+---
+title: Tallahassee hot map
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(sf)
+library(tidyverse)
+```
+
+Get the CDC Social Vulnerability Index data (Florida only)
+https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html
+
+```{r}
+svi.sf <- read_sf(dsn = "Florida",
+                  layer = "SVI2018_FLORIDA_tract") |>
+  filter(COUNTY == "Leon")
+
+ggplot(data = svi.sf,
+       mapping = aes(fill = RPL_THEME2)) +
+  geom_sf() +
+  theme_dark()
+```
+
